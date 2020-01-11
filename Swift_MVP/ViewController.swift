@@ -19,12 +19,12 @@ class CartViewController: UIViewController {
 
 	// VARIABLES
 	private let cartPresenter = CartPresenter(cartService: CartService())
-	var cartToDisplay         = [CartViewData]()
-	var tempCartToDisplay     = [CartViewData]()
-	var refreshControll		  = UIRefreshControl()
-	var objects 			  = NSMutableArray()
+	var cartToDisplay = [CartViewData]()
+	var tempCartToDisplay = [CartViewData]()
+	var refreshControll = UIRefreshControl()
+	var objects = NSMutableArray()
 	var leftBarButton: ENMBadgedBarButtonItem?
-	var count 				  = 0
+	var count = 0
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -47,7 +47,7 @@ class CartViewController: UIViewController {
 		super.viewDidAppear(true)
 	}
 	
-	func initPullRefresh(_ refresh: UIRefreshControl) {
+    @objc func initPullRefresh(_ refresh: UIRefreshControl) {
 		
 		let delayTime = DispatchTime.now() + 2
 		DispatchQueue.main.asyncAfter(deadline: delayTime) {
@@ -76,7 +76,7 @@ class CartViewController: UIViewController {
 			button.frame = CGRect.zero;
 		}
 		
-		button.setBackgroundImage(image, for: UIControlState())
+        button.setBackgroundImage(image, for: UIControl.State())
 		
 		let newBarButton = ENMBadgedBarButtonItem(customView: button, value: "5")
 		leftBarButton = newBarButton
@@ -99,7 +99,7 @@ class CartViewController: UIViewController {
 		cartToDisplay.remove(at: index)
 		
 		let indexPath = IndexPath(row: index, section: 0)
-		self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+        self.tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
 		
 		count = cartToDisplay.count
 		leftBarButton?.badgeValue = "\(count)"
@@ -157,11 +157,11 @@ extension CartViewController: UITableViewDataSource {
 		
 	}
 	
-	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
 		return true
 	}
 	
-	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		
 		if editingStyle == .delete {
 			self.deleteData(index: indexPath.row)
